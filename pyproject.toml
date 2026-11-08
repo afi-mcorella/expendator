@@ -1,0 +1,16 @@
+[project]
+name = "expendator"
+version = "0.1.0"
+description = "Command-line expense tracker used in a coding agents course."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
+
+[dependency-groups]
+dev = ["pytest"]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
