@@ -16,6 +16,8 @@ class Expense:
 
 def load(path):
     """Read the expenses stored in a JSON file."""
+    if not Path(path).exists():
+        return []
     with open(path, encoding="utf-8") as f:
         data = json.load(f)
     return [
