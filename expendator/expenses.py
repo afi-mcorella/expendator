@@ -63,4 +63,4 @@ def total(expenses):
 def format_amount(cents):
     """Format cents as a string such as '12,05 €'."""
     euros, rest = divmod(cents, 100)
-    return f"{euros},{rest} €"
+    return f"{euros},{rest:02d} €"
