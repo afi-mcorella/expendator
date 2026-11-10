@@ -83,3 +83,19 @@ def test_cli_total_filters_by_category(tmp_path, capsys):
     ex.save(path, [make_expense("food", 1250), make_expense("travel", 4599)])
     run(path, "total", "--category", "food")
     assert "Total: 12,50 €" in capsys.readouterr().out
+
+
+# --- totals by category ----------------------------------------------------
+
+
+def test_total_by_category_groups_names_with_different_case_and_spaces():
+    expenses = [
+        make_expense("Café", 300),
+        make_expense("café", 250),
+        make_expense(" CAFÉ ", 100),
+    ]
+    assert ex.total_by_category(expenses) == {"café": 650}
+
+
+def test_total_by_category_of_empty_list_is_empty_dict():
+    assert ex.total_by_category([]) == {}

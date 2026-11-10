@@ -66,3 +66,11 @@ def format_amount(cents):
     """Format cents as a string such as '12,05 €'."""
     euros, rest = divmod(cents, 100)
     return f"{euros},{rest:02d} €"
+
+
+def total_by_category(expenses):
+    totals = {}
+    for e in expenses:
+        key = e.category.strip().casefold()
+        totals[key] = totals.get(key, 0) + e.amount
+    return totals
