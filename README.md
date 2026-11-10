@@ -24,6 +24,7 @@ python -m expendator add food 12,05 "Lunch" --date 2025-03-14
 python -m expendator list
 python -m expendator list --category food
 python -m expendator total
+python -m expendator summary
 ```
 
 Use `--file PATH` (before the subcommand) to choose the JSON file.
