@@ -43,6 +43,8 @@ def build_parser():
 
     p_total = sub.add_parser("total", help="mostrar el total")
     p_total.add_argument("--category", help="filtrar por categoría")
+
+    sub.add_parser("summary", help="mostrar el total por categoría")
     return parser
 
 
@@ -60,6 +62,14 @@ def main(argv=None):
         ex.add(expenses, expense)
         ex.save(args.file, expenses)
         print(f"Gasto añadido: {ex.format_amount(expense.amount)} en {expense.category}.")
+        return 0
+
+    if args.command == "summary":
+        totals = ex.total_by_category(expenses)
+        if not totals:
+            print("No hay gastos.")
+        for category in sorted(totals):
+            print(f"{category:<12} {ex.format_amount(totals[category]):>10}")
         return 0
 
     if args.category:

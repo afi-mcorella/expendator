@@ -99,3 +99,27 @@ def test_total_by_category_groups_names_with_different_case_and_spaces():
 
 def test_total_by_category_of_empty_list_is_empty_dict():
     assert ex.total_by_category([]) == {}
+
+
+def test_cli_summary_prints_one_line_per_category(tmp_path, capsys):
+    path = tmp_path / "data.json"
+    ex.save(
+        path,
+        [
+            make_expense("travel", 4599),
+            make_expense("food", 1250),
+            make_expense("food", 1000),
+        ],
+    )
+    run(path, "summary")
+    lines = capsys.readouterr().out.splitlines()
+    assert len(lines) == 2
+    assert lines[0].startswith("food") and "22,50 €" in lines[0]
+    assert lines[1].startswith("travel") and "45,99 €" in lines[1]
+
+
+def test_cli_summary_without_expenses_says_there_are_none(tmp_path, capsys):
+    path = tmp_path / "data.json"
+    ex.save(path, [])
+    run(path, "summary")
+    assert capsys.readouterr().out.strip() == "No hay gastos."
